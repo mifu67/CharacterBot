@@ -159,7 +159,5 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-# each user will have their own 'data' folder
-data/
 # venv
 cs224v/
