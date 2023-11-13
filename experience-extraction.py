@@ -134,8 +134,8 @@ def write_experience_batch(filename, out_list):
 
 def main():
     outlist = []
-    # outfilename = "trainingdata/hansolo/young-han.json"
-    outfilename = "trainingdata/hansolo/test-fname.json"
+    outfilename = "trainingdata/hansolo/young-han.json"
+    # outfilename = "trainingdata/hansolo/test-fname.json"
     for i in tqdm(range(START_NUM, END_NUM + 1)):
         print(f"FILE: {i}")
         filename = get_file_prefix(i) + f"hansolo-long-{i}.txt"
