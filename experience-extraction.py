@@ -88,8 +88,8 @@ def write_experience_batch(filename, out_list):
     f_2 = open(short_context_filename, "r")
     short_context = f_2.readline()
     f_2.close()
-    print(long_context)
-    print(short_context)
+    # print(long_context)
+    # print(short_context)
 
     extracted_scenes_raw = CLIENT.chat.completions.create(
         model=MODEL,
