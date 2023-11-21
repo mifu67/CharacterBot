@@ -13,8 +13,10 @@ CLIENT = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 # this is for young Han for now
 START_NUM = 0
-END_NUM = 15
-NUM_SCENES = 15
+END_NUM = 0
+# END_NUM = 15
+NUM_SCENES = 2
+# NUM_SCENES = 15
 PROTAG_NAME = "Han Solo"
 PROTAG_SHORT_NAME = "Han"
 
@@ -48,8 +50,15 @@ def compose_scene_extraction_prompt(context):
     return prompt
 
 def create_meta_prompt(scene, expanded_scene):
-    location = scene.split("\n")[0].split(":")[1] # gross
-    status = expanded_scene.split("\n\n")[0].split("\n")[1].split("<|eot|>")[0] # even worse
+    lpos = scene.find("Location:")
+    location = scene[lpos].split('\n')[0].replace('Location: ', '') # gross
+    bpos = expanded_scene.find("Background:")
+    if bpos != -1:
+        status = expanded_scene[bpos].split('\n\n')[0].replace('Background:', '').replace('\n', '') # even worse
+    else: # use the compact scene version
+        bpos = scene.find("Background: ")
+        status = scene[lpos].split('\n')[0].replace('Background: ', '')
+
     prompt = (
         META_PROMPT_OPENING + "\n\n" + 
         "Your status is as follows:\nLocation: " + location + "\n"
@@ -134,8 +143,8 @@ def write_experience_batch(filename, out_list):
 
 def main():
     outlist = []
-    outfilename = "trainingdata/hansolo/young-han.json"
-    # outfilename = "trainingdata/hansolo/test-fname.json"
+    # outfilename = "trainingdata/hansolo/young-han.json"
+    outfilename = "trainingdata/hansolo/test.json"
     for i in tqdm(range(START_NUM, END_NUM + 1)):
         print(f"FILE: {i}")
         filename = get_file_prefix(i) + f"hansolo-long-{i}.txt"
