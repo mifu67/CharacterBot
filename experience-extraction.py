@@ -50,15 +50,18 @@ def compose_scene_extraction_prompt(context):
     return prompt
 
 def create_meta_prompt(scene, expanded_scene):
-    lpos = scene.find("Location:")
-    location = scene[lpos].split('\n')[0].replace('Location: ', '') # gross
+    # print(scene)
+    # print(expanded_scene)
+    lpos = scene.find("Location: ")
+    location = scene[lpos:].split('\n')[0].replace('Location: ', '') # gross
     bpos = expanded_scene.find("Background:")
     if bpos != -1:
-        status = expanded_scene[bpos].split('\n\n')[0].replace('Background:', '').replace('\n', '') # even worse
+        status = expanded_scene[bpos:].split('\n\n')[0].replace('Background:', '').replace('\n', '').strip("<|eot|>") # even worse
     else: # use the compact scene version
         bpos = scene.find("Background: ")
-        status = scene[lpos].split('\n')[0].replace('Background: ', '')
-
+        status = scene[bpos:].split('\n')[0].replace('Background: ', '')
+    print("LOCATION: ", location)
+    print("BACKGROUND: ", status)
     prompt = (
         META_PROMPT_OPENING + "\n\n" + 
         "Your status is as follows:\nLocation: " + location + "\n"
