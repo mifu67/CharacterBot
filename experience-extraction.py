@@ -13,10 +13,10 @@ CLIENT = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 # this is for young Han for now
 START_NUM = 0
-END_NUM = 0
-# END_NUM = 15
-NUM_SCENES = 2
-# NUM_SCENES = 15
+# END_NUM = 0
+END_NUM = 15
+# NUM_SCENES = 2
+NUM_SCENES = 20
 PROTAG_NAME = "Han Solo"
 PROTAG_SHORT_NAME = "Han"
 
@@ -60,8 +60,6 @@ def create_meta_prompt(scene, expanded_scene):
     else: # use the compact scene version
         bpos = scene.find("Background: ")
         status = scene[bpos:].split('\n')[0].replace('Background: ', '')
-    print("LOCATION: ", location)
-    print("BACKGROUND: ", status)
     prompt = (
         META_PROMPT_OPENING + "\n\n" + 
         "Your status is as follows:\nLocation: " + location + "\n"
@@ -111,14 +109,14 @@ def write_experience_batch(filename, out_list):
                 "content": compose_scene_extraction_prompt(long_context)
             }
         ],
-        temperature=0.2,
+        temperature=0.7,
         max_tokens=2048,
-        top_p=1,
+        top_p=0.95,
     )
 
     # convert scenes to list
     scenes_list = extracted_scenes_raw.choices[0].message.content.split("\n\n")
-    print("GOT SCENE LIST")
+    # print("GOT SCENE LIST")
     # for each scene, extract experience
     for scene in scenes_list:
         expanded_scene_raw = CLIENT.chat.completions.create(
@@ -142,14 +140,14 @@ def write_experience_batch(filename, out_list):
                 "output": get_interactions(expanded_scene)
             }
         )
-    print("FILE DONE")
+    # print("FILE DONE")
 
 def main():
     outlist = []
-    # outfilename = "trainingdata/hansolo/young-han.json"
-    outfilename = "trainingdata/hansolo/test.json"
+    outfilename = "trainingdata/hansolo/young-han.json"
+    # outfilename = "trainingdata/hansolo/test.json"
     for i in tqdm(range(START_NUM, END_NUM + 1)):
-        print(f"FILE: {i}")
+        # print(f"FILE: {i}")
         filename = get_file_prefix(i) + f"hansolo-long-{i}.txt"
         write_experience_batch(filename, outlist)
         # doing this each time in case something goes wrong
