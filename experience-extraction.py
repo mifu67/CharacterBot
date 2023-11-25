@@ -152,7 +152,7 @@ def write_experience_batch(filename, out_list):
 
 def main():
     outlist = []
-    outfilename = "trainingdata/hansolo/han.json"
+    outfilename = "trainingdata/hansolo/old-han.json"
     # outfilename = "trainingdata/hansolo/test.json"
     for i in tqdm(range(START_NUM, END_NUM + 1)):
         # print(f"FILE: {i}")
