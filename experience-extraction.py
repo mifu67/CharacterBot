@@ -11,7 +11,7 @@ load_dotenv()
 # openai.api_key = os.getenv('OPENAI_API_KEY')
 CLIENT = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
-START_NUM = 65
+START_NUM = 81
 END_NUM = 83
 # NUM_SCENES = 2
 NUM_SCENES = 15
@@ -151,8 +151,11 @@ def write_experience_batch(filename, out_list):
     # print("FILE DONE")
 
 def main():
-    outlist = []
     outfilename = "trainingdata/hansolo/old-han.json"
+    f = open(outfilename, "r")
+    # outlist = []
+    outlist = json.load(f)
+    f.close()
     # outfilename = "trainingdata/hansolo/test.json"
     for i in tqdm(range(START_NUM, END_NUM + 1)):
         # print(f"FILE: {i}")
