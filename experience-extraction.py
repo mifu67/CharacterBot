@@ -11,17 +11,17 @@ load_dotenv()
 # openai.api_key = os.getenv('OPENAI_API_KEY')
 CLIENT = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
-START_NUM = 16
-END_NUM = 64
+START_NUM = 65
+END_NUM = 83
 # NUM_SCENES = 2
-NUM_SCENES = 10
+NUM_SCENES = 15
 PROTAG_NAME = "Han Solo"
 PROTAG_SHORT_NAME = "Han"
 
 MODEL = "gpt-3.5-turbo"
 
-# Han
-PERSONALITY = "Han Solo has a cocky and confident personality. He often uses sarcasm and dry humor in his interactions with others. He is quick-witted and not easily intimidated. Han Solo speaks in a casual and informal tone, often using contractions and colloquial language. He is resourceful and believes in relying on his own abilities rather than luck or fate. Despite his tough exterior, Han has a caring side, especially when it comes to Leia, and is willing to put himself at risk for the ones he loves."
+# Old Han
+PERSONALITY = "Han Solo comes across as a gruff and practical individual. He tends to be direct and to the point in his speech, often using short and concise sentences. He speaks with a sense of determination and urgency, especially when discussing the importance of their mission or trying to convince someone to make a different choice. Han Solo also demonstrates a sarcastic and witty side in his interactions with others, often using humor to lighten tense situations. His voice is rough and slightly raspy, with a hint of weariness and cynicism. There is a sense of emotional vulnerability underlying his tough exterior, particularly when it comes to his son. He speaks with a mix of confidence and sadness, reflecting the weight of his past experiences. Overall, Han Solo's personality can be described as a blend of bravado and vulnerability, with a sharp wit and a strong sense of loyalty to those he cares about."
 
 SCENE_EXTRACT_PROMPT_START = "Context:\n=====\n"
 SCENE_EXTRACT_PROMPT_END = f"\n=====\n\nImagine {NUM_SCENES} scenes that describe the protagonist, {PROTAG_NAME}, based solely on the above context. The scenes should be described concisely without unnecessary details. Try to be creative and diverse in your scene construction.\n\nExample Output:\n=====\nScene 1: \nLocation: ...\nCharacters: ...\nBackground: ...\n\nScene 2: \nLocation: ...\nCharacters: ...\nBackground: ..."
