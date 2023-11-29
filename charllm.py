@@ -3,12 +3,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 import json
 import together
-from apikey import KEY
+from apikey import TOG_KEY
 
 EXPERIENCE_PATH = 'trainingdata/hansolo/young-han.json'
 PROTECTED_PATH = 'trainingdata/hansolo/young-han-protective.json'
 
-together.api_key = KEY
+together.api_key = TOG_KEY
 
 model_list = together.Models.list()
 

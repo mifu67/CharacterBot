@@ -1,7 +1,7 @@
 import together
-from apikey import KEY
+from apikey import TOG_KEY
 
-together.api_key = KEY
+together.api_key = TOG_KEY
 
 resp = together.Finetune.create(
   training_file = 'file-bb280f38-2b64-42a9-9349-6e7eb2ad2d05',
@@ -11,7 +11,7 @@ resp = together.Finetune.create(
   batch_size = 4,
   learning_rate = 1e-5,
   suffix = 'my-demo-finetune',
-  wandb_api_key = KEY,
+  wandb_api_key = TOG_KEY,
 )
 
 fine_tune_id = resp['id']
