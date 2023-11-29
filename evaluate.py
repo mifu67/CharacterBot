@@ -23,7 +23,12 @@ INTERACTIONS_HEADER = '[Interactions]'
 CRITERIA_HEADER = '[Evaluation Criterion]'
 STEPS_HEADER = '[Evaluation Steps]'
 
-def evaluate_memorization():
+BACKGROUND = f"Location: coffee shop in the 21st century, afternoon. \nStatus: {agent_name} is casually chatting with a man from the 21st century. {agent_name} fully trusts the man who engage in conversation and shares everything {agent_name} knows without reservation."
+
+def make_prompt(profile, interactions, criterion, steps):
+    return f"{PROMPT_HEADER}\n\n{PROFILE_HEADER}\n{profile}\n\n{BACKGROUND_HEADER}\n{BACKGROUND}\n\n{INTERACTIONS_HEADER}\n{interactions}\n\n{CRITERIA_HEADER}\n{criterion}\n\n{STEPS_HEADER}\n{steps}\n\n{PROMPT_FOOTER}"
+
+def evaluate_memorization(responses):
     criterion = 'Factual Correctness (1-7): Does the response provides truthful and detailed facts about the character?'
     steps = [
         '1. Read through the interactions and identify the key points related to the character',
@@ -32,7 +37,7 @@ def evaluate_memorization():
         '4. Rate the performance of the AI on a scale of 1-7 for factual correctness, where 1 is the lowest and 7 is the highest based on the Evaluation Criteria'
     ]
 
-def evaluate_personality():
+def evaluate_personality(responses):
     criterion = 'Personality (1-7): Does the response reflect the character\'s personality and preferences?'
     steps = [
         '1. Read through the profile and write the personalities and preferences of the real character',
@@ -41,7 +46,7 @@ def evaluate_personality():
         '4. Use the given scale from 1-7 to rate how well the response reflects the personalities and preferences of the character. 1 being not at all reflective of the character\'s personalities, and 7 being perfectly reflective of the character\'s personalities.'
     ]
 
-def evaluate_values():
+def evaluate_values(responses):
     criterion = 'Values (1-7): Does the response reflect the character\'s values and convictions?'
     steps = [
         '1. Read through the profile and write the values and convictions of the real character',
@@ -50,7 +55,7 @@ def evaluate_values():
         '4. Use the given scale from 1-7 to rate how well the response reflects the values and convictions of the character. 1 being not at all reflective of the character\'s values, and 7 being perfectly reflective of the character\'s values.'
     ]
 
-def evaluate_hallu():
+def evaluate_hallu(responses):
     criterion = 'Hallucination (1-7): Does the response contain anything the character should not know?'
     steps = [
         '1. Read through the interactions and identify the knowledge scope of the character',
@@ -59,7 +64,7 @@ def evaluate_hallu():
         '4. Rate the performance of the AI on a scale of 1-7 for Avoiding Hallucination, where 1 is the lowest and 7 is the highest based on the Evaluation Criteria.'
     ]
 
-def evaluate_stability():
+def evaluate_stability(responses):
     criterion = 'Stability (1-7): Does the assistant maintain good performance over a long horizon?'
     steps = [
         f'1. Read through the given profile and background information to familiarize yourself with the context and details of the AI assistant named {agent_name}',
