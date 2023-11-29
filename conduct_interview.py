@@ -1,3 +1,6 @@
+
+# TODO: Rerun this script with new interview questions
+
 from openai import OpenAI
 from apikey import GPT_KEY, TOG_KEY
 from concurrent.futures import ThreadPoolExecutor, as_completed
