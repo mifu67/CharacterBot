@@ -9,8 +9,8 @@ MODEL = 'gpt-3.5-turbo'
 together.api_key = TOG_KEY
 
 YOUNG = 'mifu67@stanford.edu/llama-2-7b-chat-young-han-new-data-6--1e-05-2023-11-22-21-56-35'
-MIDDLE = ''
-OLD = ''
+MIDDLE = 'mifu67@stanford.edu/llama-2-7b-chat-middle-han-10--1e-05-2023-11-29-03-08-42'
+OLD = 'mifu67@stanford.edu/llama-2-7b-chat-old-han-third-20--1e-05-2023-11-27-03-46-19'
 
 agent_name = 'Han Solo'
 
@@ -69,7 +69,10 @@ def evaluate_stability():
     ]
 
 def main():
-    pass
+    print('no errors')
+
+if __name__ == '__main__':
+    main()
 
 
 
