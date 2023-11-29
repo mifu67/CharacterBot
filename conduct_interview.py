@@ -65,9 +65,9 @@ def fetch_api_response(question, age):
 def main():
     for age in [YOUNG, MIDDLE, OLD]:
         if age == YOUNG:
-            continue
-            # questions = young_questions
-            # out_path = OUT_YOUNG_PATH
+            # continue
+            questions = young_questions
+            out_path = OUT_YOUNG_PATH
         elif age == MIDDLE:
             continue
             # questions = middle_questions
