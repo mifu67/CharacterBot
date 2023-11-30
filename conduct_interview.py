@@ -14,7 +14,7 @@ MODEL = 'gpt-3.5-turbo'
 together.api_key = TOG_KEY
 
 YOUNG = 'mifu67@stanford.edu/llama-2-7b-chat-young-han-new-data-6--1e-05-2023-11-22-21-56-35'
-MIDDLE = 'mifu67@stanford.edu/llama-2-7b-chat-middle-han-10--1e-05-2023-11-29-03-08-42'
+MIDDLE = 'mifu67@stanford.edu/llama-2-7b-chat-middle-han-second-10--1e-05-2023-11-29-06-01-02'
 OLD = 'mifu67@stanford.edu/llama-2-7b-chat-old-han-third-20--1e-05-2023-11-27-03-46-19'
 
 YOUNG_QUESTIONS_PATH = './young-interview.txt'
@@ -65,17 +65,17 @@ def fetch_api_response(question, age):
 def main():
     for age in [YOUNG, MIDDLE, OLD]:
         if age == YOUNG:
-            # continue
-            questions = young_questions
-            out_path = OUT_YOUNG_PATH
-        elif age == MIDDLE:
             continue
-            # questions = middle_questions
-            # out_path = OUT_MIDDLE_PATH
-        elif age == OLD:
+            # questions = young_questions
+            # out_path = OUT_YOUNG_PATH
+        elif age == MIDDLE:
             # continue
-            questions = old_questions
-            out_path = OUT_OLD_PATH
+            questions = middle_questions
+            out_path = OUT_MIDDLE_PATH
+        elif age == OLD:
+            continue
+            # questions = old_questions
+            # out_path = OUT_OLD_PATH
         else:
             raise ValueError(f'Invalid age {age}')
         
@@ -93,7 +93,7 @@ def main():
                     print('%r generated an exception: %s' % (question, exc))
                 else:
                     answers.append(answer)
-
+        together.Models.stop(model=age)
         with open(out_path, 'w') as f:
             json.dump(answers, f, indent=4)
 
