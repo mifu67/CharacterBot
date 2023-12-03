@@ -2,6 +2,10 @@ import os
 from tqdm import tqdm
 from openai import OpenAI
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 CLIENT = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 MODEL = "gpt-3.5-turbo"

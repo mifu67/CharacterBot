@@ -1,10 +1,15 @@
 """
 Main file for CharacterBot
 """
+import os
 import together
+from dotenv import load_dotenv
 
+load_dotenv()
 
-MODEL_SET = set(['young', 'regular', 'old'])
+together.api_key = os.getenv('TOGETHER_API_KEY')
+
+MODEL_SET = set(['YOUNG', 'REGULAR', 'OLD'])
 YOUNG = "mifu67@stanford.edu/llama-2-7b-chat-young-han-new-data-6--1e-05-2023-11-22-21-56-35"
 REGULAR = "mifu67@stanford.edu/llama-2-7b-chat-middle-han-10--1e-05-2023-11-29-03-08-42"
 OLD = "mifu67@stanford.edu/llama-2-7b-chat-old-han-third-20--1e-05-2023-11-27-03-46-19"
@@ -17,12 +22,13 @@ def chat_loop(model: str) -> None:
     prompt = SYSTEM
     user_turn = ""
     while user_turn.strip() != 'quit':
-        user_turn = input("What do you want to say? Type 'quit' to stop chatting.")
+        user_turn = input("What do you want to say? Type 'quit' to stop chatting. ")
         prompt += "[INST] " + user_turn
+        # print("PROMPT:", prompt)
 
         bot_turn = together.Complete.create(
             prompt = prompt,
-            model = model, 
+            model = model,
             max_tokens = 2048,
             temperature = 0.2,
             top_k = 60,
