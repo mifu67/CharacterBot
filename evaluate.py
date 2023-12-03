@@ -39,8 +39,8 @@ with open(PROFILE_PATHS['old'], 'r') as f:
 
 with open ('./interviews/young-interview-answers.json', 'r') as f:
     YOUNG_RESPONSE = json.load(f)
-# with open ('./interviews/mid-interview-answers.json', 'r') as f:
-#     MIDDLE_RESPONSE = json.load(f)
+with open ('./interviews/middleage-interview-answers.json', 'r') as f:
+    MIDDLE_RESPONSE = json.load(f)
 with open ('./interviews/old-interview-answers.json', 'r') as f:
     OLD_RESPONSE = json.load(f)
 
@@ -106,6 +106,25 @@ def evaluate_hallu(age):
             except Exception as exc:
                 print('%r generated an exception: %s' % (response, exc))
     
+    elif age == 'middle':
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            future_to_score = {
+            executor.submit(
+                client.chat.completions.create, 
+                model=MODEL, 
+                messages=[{'role': 'system', 'content': make_prompt(PROFILES['middle'], 'Interviewer: ' + response['question'] + '\nHan: ' + response['answer'], criterion, '\n'.join(steps))}],
+                temperature=0.7
+            ): response for response in MIDDLE_RESPONSE
+        }
+        
+        for future in as_completed(future_to_score):
+            response = future_to_score[future]
+            try:
+                score = future.result().choices[0].message.content.split('\n')[-1]
+                scores.append(score)
+            except Exception as exc:
+                print('%r generated an exception: %s' % (response, exc))
+    
     elif age == 'old':
         with ThreadPoolExecutor(max_workers=5) as executor:
             future_to_score = {
@@ -138,8 +157,8 @@ def evaluate_stability(responses):
     ]
 
 def main():
-    scores = evaluate_hallu('old')
-    with open ('./eval_results_old.txt', 'w') as f:
+    scores = evaluate_hallu('middle')
+    with open ('./eval_results_mid.txt', 'w') as f:
         f.write('\n'.join(scores))
 
 if __name__ == '__main__':
