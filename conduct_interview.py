@@ -17,6 +17,19 @@ YOUNG = 'mifu67@stanford.edu/llama-2-7b-chat-young-han-new-data-6--1e-05-2023-11
 MIDDLE = 'mifu67@stanford.edu/llama-2-7b-chat-middle-han-third-10--1e-05-2023-12-02-06-43-18'
 OLD = 'mifu67@stanford.edu/llama-2-7b-chat-old-han-third-20--1e-05-2023-11-27-03-46-19'
 
+YOUNG_HALLU_PATH = './young-hallucinate.txt'
+MIDDLE_HALLU_PATH = './middleage-hallucinate.txt'
+OLD_HALLU_PATH = './old-hallucinate.txt'
+
+with open(YOUNG_HALLU_PATH, 'r') as f:
+    young_hallu = [line.strip() for line in f.readlines()]
+
+with open(MIDDLE_HALLU_PATH, 'r') as f:
+    middle_hallu = [line.strip() for line in f.readlines()]
+
+with open(OLD_HALLU_PATH, 'r') as f:
+    old_hallu = [line.strip() for line in f.readlines()]
+
 YOUNG_QUESTIONS_PATH = './young-interview.txt'
 MIDDLE_QUESTIONS_PATH = './middleage-interview.txt'
 OLD_QUESTIONS_PATH = './old-interview.txt'
@@ -24,6 +37,10 @@ OLD_QUESTIONS_PATH = './old-interview.txt'
 OUT_YOUNG_PATH = './interviews/young-interview-answers.json'
 OUT_MIDDLE_PATH = './interviews/middleage-interview-answers.json'
 OUT_OLD_PATH = './interviews/old-interview-answers.json'
+
+OUT_YOUNG_HALLU = './interviews/young-hallucinate-answers.json'
+OUT_MIDDLE_HALLU = './interviews/middleage-hallucinate-answers.json'
+OUT_OLD_HALLU = './interviews/old-hallucinate-answers.json'
 
 with open(YOUNG_QUESTIONS_PATH, 'r') as f:
     young_questions = [line.strip() for line in f.readlines()]
@@ -67,15 +84,21 @@ def main():
         if age == YOUNG:
             continue
             # questions = young_questions
+            # questions = young_hallu
             # out_path = OUT_YOUNG_PATH
+            # out_path = OUT_YOUNG_HALLU
         elif age == MIDDLE:
             continue
             # questions = middle_questions
+            # questions = middle_hallu
             # out_path = OUT_MIDDLE_PATH
+            # out_path = OUT_MIDDLE_HALLU
         elif age == OLD:
             # continue
-            questions = old_questions
-            out_path = OUT_OLD_PATH
+            # questions = old_questions
+            questions = old_hallu
+            # out_path = OUT_OLD_PATH
+            out_path = OUT_OLD_HALLU
         else:
             raise ValueError(f'Invalid age {age}')
         
