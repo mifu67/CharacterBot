@@ -57,7 +57,7 @@ def main():
     print("--------------------------------------------------")
     together.Models.start(model)
     chat_loop(model)
-    # together.Models.stop(model)
+    together.Models.stop(model)
 
 if __name__ == "__main__":
     main()
